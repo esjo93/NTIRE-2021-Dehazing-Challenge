@@ -60,7 +60,7 @@ You can test your pretrained model by following:
 $ python main.py test -d [data path] --resume [pretrained model path] --phase test --batch-size 1
 ```
 
-Download pretrained model: [[download](https://drive.google.com/file/d/1LaGob83XbpoWDi5peaPUoZExnLnAOC5L/view?usp=sharing)]
+Download pretrained model: [![download](https://drive.google.com/file/d/1LaGob83XbpoWDi5peaPUoZExnLnAOC5L/view?usp=sharing)]
 
 <!-- ## Results
 | Metrics | Test Scores (#51~55)
@@ -69,4 +69,4 @@ Download pretrained model: [[download](https://drive.google.com/file/d/1LaGob83X
 | SSIM | 0.54 |
 | Run time[s] per img. | 0.04 | | -->
 
-![results](./figure/results.PNG)
+Download qualitative results of the pretrained model: [![download](https://drive.google.com/file/d/1hGQzj8Uyxku1UHKyABfwqjRUkmKlby9G/view?usp=sharing)]
