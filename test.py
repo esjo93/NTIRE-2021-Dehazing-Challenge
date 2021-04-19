@@ -48,7 +48,7 @@ def test(eval_data_loader, model, output_dir='test', save_vis=True, logger=None)
         end = time.time()
 
 
-def test_dehaze(args, save_dir='.', logger=None):
+def test_dehaze(args, save_dir='.', logger=None, logging=None):
     batch_size = args.batch_size
     num_workers = args.workers
     
@@ -75,16 +75,19 @@ def test_dehaze(args, save_dir='.', logger=None):
     start_epoch = 0
     if args.resume:
         if os.path.isfile(args.resume):
-            logger.info("=> loading checkpoint '{}'".format(args.resume))
             checkpoint = torch.load(args.resume)
+            logger.info("=> loading checkpoint '{}'".format(args.resume))
             start_epoch = checkpoint['epoch']
-            model.load_state_dict(checkpoint['state_dict'])
+            out_dir = os.path.join(save_dir, '{:03d}_{}'.format(start_epoch, 'test'))
+            if not os.path.exists(out_dir):
+                os.makedirs(out_dir, exist_ok=True)
+            file_handler = logging.FileHandler(out_dir + '/log_testing.log', mode='w')
+            logger.addHandler(file_handler)
+            model.load_state_dict(checkpoint['state_dict'], strict=False)
             logger.info("=> loaded checkpoint '{}' (epoch {})"
                   .format(args.resume, checkpoint['epoch']))
         else:
             logger.info("=> no checkpoint found at '{}'".format(args.resume))
             return
 
-    save_dir = os.path.dirname(args.resume)
-    out_dir = os.path.join(save_dir, '{:03d}_{}'.format(start_epoch, 'test'))
     test(test_loader, model, save_vis=True, output_dir=out_dir, logger=logger)

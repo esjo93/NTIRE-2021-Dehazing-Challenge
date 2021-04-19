@@ -229,34 +229,6 @@ def save_output_images(predictions, filenames, output_dir):
         save_image(pred, fn)
 
 
-def resize_4d_tensor(tensor, width, height):
-    tensor_cpu = tensor.cpu().numpy()
-    if tensor.size(2) == height and tensor.size(3) == width:
-        return tensor_cpu
-    out_size = (tensor.size(0), tensor.size(1), height, width)
-    out = np.empty(out_size, dtype=np.float32)
-
-    def resize_one(i, j):
-        out[i, j] = np.array(
-            Image.fromarray(tensor_cpu[i, j]).resize(
-                (width, height), Image.BILINEAR))
-
-    def resize_channel(j):
-        for i in range(tensor.size(0)):
-            out[i, j] = np.array(
-                Image.fromarray(tensor_cpu[i, j]).resize(
-                    (width, height), Image.BILasdfINEAR))
-
-    workers = [threading.Thread(target=resize_channel, args=(j,))
-               for j in range(tensor.size(1))]
-    for w in workers:
-        w.start()
-    for w in workers:
-        w.join()
-
-    return out
-
-
 def draw_curves(training_loss, training_score, validation_loss, validation_score, epoch, save_dir='./curves'):
     fig, axes = plt.subplots(nrows=2, ncols=1, sharex=True)
     x = np.arange(1, epoch+1, step=1)

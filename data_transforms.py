@@ -126,6 +126,7 @@ class RandomHorizontalFlip(object):
             results = [image, label]
         return results
 
+
 class RandomVerticalFlip(object):
     """Randomly horizontally flips the given PIL.Image with a probability of 0.5
     """
@@ -137,6 +138,7 @@ class RandomVerticalFlip(object):
         else:
             results = [image, label]
         return results
+
 
 class AddNoise(object):
     def __init__(self, mean=0, sigma=0.01):

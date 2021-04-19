@@ -45,27 +45,26 @@ def train(train_loader, model, criterion, optimizer, epoch, eval_score=None, \
         target_var_4 = F.interpolate(target_var, scale_factor=0.25, mode='bilinear')
         target_var_8 = F.interpolate(target_var, scale_factor=0.125, mode='bilinear')
 
-        # Set gradients to zero
+        # set gradients to zero
         optimizer.zero_grad()
 
         out, out_2, out_4, out_8 = net(input_var)
         out_wo_brelu = out.clone()
         out = out.clamp(0, 1)
 
-        # Loss computation
+        # compute loss
         loss = criterion(out_wo_brelu, target_var) \
             + 0.5*criterion(out_2, target_var_2) + 0.25*criterion(out_4, target_var_4) \
                 + 0.125*criterion(out_8, target_var_8)
+        
         loss.backward()
-
         optimizer.step()
-
         losses.update(loss.data, input.size(0))
 
-        # Measure elapsed time
+        # measure elapsed time
         batch_time.update(time.time() - end)
 
-        # Measure psnr
+        # measure psnr
         if eval_score is not None:
             scores.update(eval_score(out, target_var), input.size(0))
         
@@ -97,6 +96,7 @@ def validate(val_loader, model, criterion, print_freq=10, output_dir='val', \
     val_results = []
     end = time.time()
     for i, (input, target, name) in enumerate(val_loader):
+        # measure data loading time
         data_time.update(time.time() - end)
         input_var = input.float()
         target_var = target.float()
@@ -143,11 +143,13 @@ def validate(val_loader, model, criterion, print_freq=10, output_dir='val', \
         end = time.time()
     logger.info(' * Score {top1.avg:.3f}'.format(top1=scores))
     
+    # save the output images in every 10th epoch
     if save_vis == True:
         for items in val_results:
             pred, name, img_save_dir = items
             save_output_images(pred, name, img_save_dir)
 
+    # save the output images if the model recorded the best score
     if auto_save and (scores.avg > best_score):
         for items in val_results:
             pred, name, img_save_dir = items

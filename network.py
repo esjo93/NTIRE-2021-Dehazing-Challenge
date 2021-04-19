@@ -264,8 +264,6 @@ class dehaze_net(nn.Module):
         
         self.act = activation
 
-        self.blender = blender()
-
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 nn.init.xavier_normal_(m.weight.data)

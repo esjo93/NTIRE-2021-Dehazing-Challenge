@@ -106,7 +106,7 @@ def main():
     
     # Logging configuration
     save_dir = './checkpoints/' + args.name
-    if not os.path.exists(save_dir):
+    if not os.path.exists(save_dir) and args.cmd != 'test':
         os.makedirs(save_dir, exist_ok=True)
 
     FORMAT = "[%(asctime)-15s %(filename)s] %(message)s"
@@ -119,15 +119,10 @@ def main():
             file_handler = logging.FileHandler(save_dir + '/log_training.log', mode='a')
         else:
             file_handler = logging.FileHandler(save_dir + '/log_training.log', mode='w')
-    elif args.cmd == 'test':
-        file_handler = logging.FileHandler(save_dir + '/log_testing.log', mode='w')
-
-    logger.addHandler(file_handler)
-
-    if args.cmd == 'train':
+        logger.addHandler(file_handler)
         train_dehaze(args, save_dir=save_dir, logger=logger)
     elif args.cmd == 'test':
-        test_dehaze(args, save_dir=save_dir, logger=logger)
+        test_dehaze(args, save_dir=os.path.dirname(args.resume), logger=logger, logging=logging)
 
 if __name__ == '__main__':
     main()
