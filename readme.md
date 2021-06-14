@@ -2,9 +2,9 @@
 ![python](https://img.shields.io/badge/python-3.6-%233776AB?logo=python&logoColor=white)
 ![pytorch](https://img.shields.io/badge/pytorch-1.4.0-%23EE4C2C?logo=PyTorch&logoColor=white)
 ## Introduction
-This is our project repository for CVPR 2021 workshop.
+This is our project repository for CVPR 2021 workshop. 
 
-**"Multi-scale Selective Residual Learning for Single Image Dehazing"**
+The repository is an official implementation of the paper [**Multi-Scale Selective Residual Learning for Non-Homogeneous Dehazing**](https://openaccess.thecvf.com/content/CVPR2021W/NTIRE/html/Jo_Multi-Scale_Selective_Residual_Learning_for_Non-Homogeneous_Dehazing_CVPRW_2021_paper.html).
 
 ## Network Architecture
 ![architecture](./figures/network_architecture.jpg)
@@ -13,7 +13,7 @@ This is our project repository for CVPR 2021 workshop.
 You can download **NTIRE 2021 NonHomogeneous Dehazing Challenge** dataset after participating the challenge in the following link:
 [https://competitions.codalab.org/competitions/28032](https://competitions.codalab.org/competitions/28032)
 
-Your dataset directory should be composed of three directories as following
+Your dataset directory should be composed of three directories as following:
 ```bash
 dataset_directory
 |-- train
@@ -36,7 +36,7 @@ dataset_directory
 ```
 
 ## Train
-You can start training your model by following command
+You can start training your model by following command:
 ```
 $ python main.py train
 Additional arguments:
@@ -57,7 +57,7 @@ Additional arguments:
 
 
 ## Test
-You can test your pretrained model by following command
+You can test your pretrained model by following command:
 ```
 $ python main.py test -d [data path] --resume [pretrained model path] --phase test --batch-size 1
 ```
@@ -87,3 +87,18 @@ Download pretrained model: [[download](https://drive.google.com/file/d/1LaGob83X
 </center>
 
 Download qualitative results of the pretrained model: [[download](https://drive.google.com/file/d/1hGQzj8Uyxku1UHKyABfwqjRUkmKlby9G/view?usp=sharing)]
+
+## Citation
+
+If you find this code useful for your publications, please consider citing.
+```
+@InProceedings{Jo_2021_CVPR,
+    author    = {Jo, Eunsung and Sim, Jae-Young},
+    title     = {Multi-Scale Selective Residual Learning for Non-Homogeneous Dehazing},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Workshops},
+    month     = {June},
+    year      = {2021},
+    pages     = {507-515}
+}
+```
+
