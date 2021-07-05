@@ -5,6 +5,8 @@
 This is our project repository for CVPR 2021 workshop. 
 
 The repository is an official implementation of the paper [**Multi-Scale Selective Residual Learning for Non-Homogeneous Dehazing**](https://openaccess.thecvf.com/content/CVPR2021W/NTIRE/html/Jo_Multi-Scale_Selective_Residual_Learning_for_Non-Homogeneous_Dehazing_CVPRW_2021_paper.html).
+</br></br>
+![demo](./figures/demo.gif)
 
 ## Network Architecture
 ![architecture](./figures/network_architecture.jpg)
